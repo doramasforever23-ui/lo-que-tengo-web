@@ -1,0 +1,76 @@
+alimento,grupo,kcal_100g,medida,g_medida,cocciones,emoji,previo,tip
+Arroz,carb,130,taza|tazas,160,hervido|salteado,🍚,Lávalo y remójalo 15 minutos,El remojo y la cocción reducen los fitatos que dificultan absorber hierro y zinc. Si el arroz cocido se enfría y se recalienta parte del almidón se vuelve resistente y actúa como fibra
+Papa,carb,77,unidad mediana|unidades medianas,150,hervido|al vapor|al horno|frito,🥔,Lávala y pélala. No uses papas verdes ni brotadas,El pelado y la cocción reducen la solanina que puede ser tóxica. Guarda las papas en un lugar oscuro y fresco porque la luz aumenta esa sustancia
+Yuca,carb,160,trozo mediano|trozos medianos,100,hervido|al vapor|frito,🌰,Pélala quitando toda la corteza y nunca la comas cruda,La yuca contiene glucósidos cianogénicos. Pelarla y cocinarla bien reduce el riesgo; las variedades amargas necesitan un proceso especial
+Verde,carb,122,unidad mediana|unidades medianas,120,hervido|al horno|a la plancha|frito,🍌,,
+Maduro,carb,120,unidad mediana|unidades medianas,120,hervido|al horno|a la plancha|frito,🍌,,
+Fideos,carb,158,taza|tazas,140,hervido|salteado,🍝,,
+Pan integral,carb,250,rebanada|rebanadas,30,tal cual|tostado,🍞,,Los cereales integrales conservan el salvado y el germen: tienen más fibra y vitaminas y son más fáciles de digerir
+Avena,carb,370,taza (en seco)|tazas (en seco),80,hervido,🥣,Si puedes déjala en remojo desde la noche anterior,El remojo reduce el ácido fítico y mejora la absorción de zinc y calcio
+Quinua,carb,120,taza|tazas,185,hervido,🌾,Lávala varias veces hasta que el agua salga clara,Las saponinas le dan sabor amargo y alteran la digestión: lavarla y cocinarla las elimina. Su proteína es de mejor calidad que la de otros cereales
+Choclo,carb,96,taza de granos|tazas de granos,140,hervido|al vapor|a la plancha,🌽,,
+Camote,carb,86,unidad mediana|unidades medianas,130,hervido|al horno|frito,🍠,Lávalo bien y cocínalo con cáscara,Cocinar al vapor o con cáscara conserva más vitaminas y tiene más fibra que la papa
+Tortilla de maíz,carb,218,unidad|unidades,30,tal cual|a la plancha,🫓,,
+Mote,carb,115,taza|tazas,160,hervido,🌽,Remójalo desde la noche anterior,
+Cebada,carb,123,taza|tazas,157,hervido,🌾,Remójala varias horas antes,El remojo y la germinación reducen antinutrientes y mejoran la absorción de minerales
+Oca,carb,61,unidad mediana|unidades medianas,80,hervido|al vapor,🥔,,
+Melloco,carb,62,taza|tazas,130,hervido|al vapor,🥔,,
+Arracacha,carb,100,taza|tazas,140,hervido|al vapor,🥕,Pélala y lávala,
+Pollo,prot,165,presa mediana|presas medianas,100,a la plancha|al horno|hervido|al vapor|salteado|frito,🍗,Quítale la piel para reducir la grasa,
+Carne de res,prot,200,porción del tamaño de la palma|porciones del tamaño de la palma,100,a la plancha|al horno|hervido|salteado|frito,🥩,,
+Cerdo,prot,242,porción del tamaño de la palma|porciones del tamaño de la palma,90,al horno|a la plancha|hervido|frito,🍖,,
+Pescado,prot,130,filete mediano|filetes medianos,120,al horno|a la plancha|al vapor|frito,🐟,,
+Atún,prot,130,lata pequeña|latas pequeñas,80,tal cual,🥫,Escurre el líquido de la lata,
+Sardina,prot,208,lata pequeña|latas pequeñas,80,tal cual,🐟,Escurre el aceite de la lata,
+Camarón,prot,99,puñado|puñados,80,salteado|hervido|a la plancha|frito,🦐,,
+Huevo,prot,143,huevo|huevos,55,hervido|revuelto|frito,🥚,Lava el huevo antes de cocinarlo,Cocinarlo bien lo hace más seguro y más fácil de digerir
+Lentejas,prot,116,taza|tazas,180,hervido,🫘,Remójalas 6 a 8 horas y bota el agua del remojo,El remojo y la cocción reducen los fitatos y los taninos que bloquean minerales y evitan que caigan pesadas. Combinadas con arroz o quinua mejoran la calidad de su proteína
+Frejol,prot,127,taza|tazas,170,hervido,🫘,Remójalo 8 a 12 horas cambiando el agua y cocínalo muy bien (mejor en olla a presión),Crudo o poco cocido tiene lectinas que causan náuseas y diarrea; la cocción y la olla a presión las eliminan
+Garbanzo,prot,164,taza|tazas,160,hervido,🫘,Remójalo 8 a 12 horas y cambia el agua,El remojo y desechar el agua reducen los azúcares que producen gases
+Chochos,prot,119,taza|tazas,160,tal cual,🫘,Usa chochos ya desamargados y lávalos,
+Habas,prot,110,taza|tazas,170,hervido,🫛,Si son secas remójalas toda la noche. No las comas crudas,Cocinarlas bien elimina lectinas e inhibidores de proteasas
+Queso fresco,prot,264,rebanada|rebanadas,30,tal cual|a la plancha,🧀,,
+Yogur natural,prot,61,taza|tazas,240,tal cual,🥛,,
+Leche,prot,61,taza|tazas,240,tal cual|hervido,🥛,Si no está pasteurizada hiérvela unos minutos,
+Tofu,prot,76,porción|porciones,100,a la plancha|salteado|al horno|tal cual,⬜,,
+Banano,fruit,89,unidad mediana|unidades medianas,120,crudo,🍌,,
+Manzana,fruit,52,unidad mediana|unidades medianas,180,crudo,🍎,,
+Naranja,fruit,47,unidad mediana|unidades medianas,150,crudo,🍊,,
+Papaya,fruit,43,taza picada|tazas picadas,150,crudo,🧡,,
+Mango,fruit,60,taza picada|tazas picadas,165,crudo,🥭,,
+Fresa,fruit,32,taza|tazas,150,crudo,🍓,,
+Piña,fruit,50,taza picada|tazas picadas,165,crudo,🍍,,
+Sandía,fruit,30,taza picada|tazas picadas,150,crudo,🍉,,
+Mora,fruit,43,taza|tazas,145,crudo,🫐,,
+Maracuyá,fruit,97,unidad|unidades,20,crudo,🟡,,
+Pera,fruit,57,unidad mediana|unidades medianas,180,crudo,🍐,,
+Uvas,fruit,69,taza|tazas,150,crudo,🍇,,
+Guayaba,fruit,68,unidad mediana|unidades medianas,90,crudo,🟢,,
+Tomate de árbol,fruit,31,unidad mediana|unidades medianas,100,crudo,🍅,,
+Naranjilla,fruit,25,unidad mediana|unidades medianas,80,crudo,🍊,,
+Melón,fruit,34,taza picada|tazas picadas,160,crudo,🍈,,
+Durazno,fruit,39,unidad mediana|unidades medianas,150,crudo,🍑,,
+Tomate,veg,18,unidad mediana|unidades medianas,120,crudo|salteado|al horno,🍅,,
+Cebolla,veg,40,rodaja gruesa|rodajas gruesas,40,crudo|salteado,🧅,,
+Zanahoria,veg,41,unidad mediana|unidades medianas,60,crudo|hervido|al vapor,🥕,,Cocinarla al vapor o con cáscara conserva mejor sus vitaminas
+Brócoli,veg,34,taza|tazas,90,al vapor|hervido|salteado|crudo,🥦,,Al vapor o con poca agua conserva más vitaminas que hervido
+Espinaca,veg,23,taza|tazas,30,crudo|salteado,🥬,,
+Lechuga,veg,15,taza|tazas,40,crudo,🥬,,
+Acelga,veg,19,taza|tazas,36,crudo|salteado|al vapor,🥬,,
+Pepino,veg,15,taza en rodajas|tazas en rodajas,105,crudo,🥒,,
+Pimiento,veg,26,unidad mediana|unidades medianas,120,crudo|salteado|al horno,🫑,,
+Col,veg,25,taza|tazas,90,crudo|hervido|salteado,🥬,,
+Zapallo,veg,26,taza|tazas,116,hervido|al horno|al vapor,🎃,,
+Zucchini,veg,17,unidad mediana|unidades medianas,196,crudo|salteado|al horno|a la plancha,🥒,,
+Berenjena,veg,25,taza|tazas,82,al horno|a la plancha|salteado,🍆,,
+Vainitas,veg,31,taza|tazas,110,al vapor|hervido|salteado,🫛,,
+Arveja tierna,veg,81,taza|tazas,145,hervido|al vapor,🫛,,
+Coliflor,veg,25,taza|tazas,100,al vapor|hervido|al horno,🥦,,
+Remolacha,veg,43,taza|tazas,136,hervido|crudo,🟣,,Contiene oxalatos; si has tenido cálculos renales consulta a tu médico. Cocinarla en agua reduce los oxalatos solubles
+Rábano,veg,16,taza|tazas,116,crudo,🔴,,
+Aguacate,fat,160,porción pequeña|porciones pequeñas,50,tal cual,🥑,,
+Aceite de oliva,fat,884,cucharada|cucharadas,13,tal cual,🫒,,
+Maní,fat,567,puñado|puñados,28,tal cual,🥜,,Es una grasa saludable pero es alérgeno frecuente: cuidado si hay alergias
+Almendras,fat,579,puñado|puñados,28,tal cual,🌰,,
+Nueces,fat,654,puñado|puñados,28,tal cual,🌰,,
+Semillas de chía,fat,486,cucharada|cucharadas,12,tal cual,⚫,,
