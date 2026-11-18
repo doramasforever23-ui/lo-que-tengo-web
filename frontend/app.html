@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lo que tengo, lo que como</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<div class="wrap">
+<header style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+  <div><div class="hero" style="font-size:clamp(1.8rem,4vw,2.6rem)">Lo que tengo, lo que como</div><div class="mut">Menús equilibrados con lo que hay en tu nevera.</div></div>
+  <div style="text-align:right"><svg viewBox="0 0 220 430" width="150" class="cuchara" role="img" aria-label="Cuchara con un plato equilibrado">
+<defs><clipPath id="b"><ellipse cx="110" cy="120" rx="82" ry="98"/></clipPath></defs>
+<rect x="96" y="205" width="28" height="205" rx="14" fill="#B8864B"/><ellipse cx="110" cy="120" rx="96" ry="112" fill="#B8864B"/>
+<ellipse cx="110" cy="120" rx="86" ry="102" fill="#F6EBD9"/>
+<g clip-path="url(#b)"><rect x="0" y="0" width="150" height="120" fill="#3B8A4C"/><rect x="150" y="0" width="80" height="120" fill="#B23C84"/>
+<rect x="0" y="120" width="110" height="120" fill="#C98F1E"/><rect x="110" y="120" width="120" height="120" fill="#C2503B"/></g>
+<g font-size="30" text-anchor="middle"><text x="75" y="75">🥦</text><text x="180" y="75">🍎</text><text x="62" y="175">🍚</text><text x="158" y="175">🍗</text></g>
+<g font-size="22" text-anchor="middle"><text x="110" y="330">🇪🇨</text></g></svg><div class="mut" id="quien"></div><button class="btn sec" id="salir">Salir</button></div>
+</header>
+<div class="aviso"><b>Ten en cuenta:</b> esta app es una guía general para personas <b>sanas y adultas</b>. Si tienes alguna enfermedad (diabetes, problemas renales, alergias...) o el menú es para un <b>menor de edad</b>, consulta primero con tu nutricionista o médico.</div>
+<nav id="tabs" class="tabs"></nav>
+
+<section class="panel" id="p-metas">
+  <div class="g2"><div class="card">
+    <h3>Tu perfil</h3>
+    <label>Edad (años)</label><input id="edad" type="number" min="1" max="110">
+    <label>Sexo</label><select id="sexo"><option>Mujer</option><option>Hombre</option></select>
+    <label>Peso (kg)</label><input id="peso" type="number" min="10" max="300" step="0.5">
+    <label>Estatura (cm)</label><input id="talla" type="number" min="80" max="230">
+    <label>Actividad física</label><select id="act"></select>
+    <label>Objetivo</label><select id="obj"></select>
+    <p><button class="btn" id="guardarPerfil">Guardar y calcular</button> <span class="mut" id="okPerfil"></span></p>
+  </div><div id="metas"></div></div>
+</section>
+<section class="panel" id="p-nevera"><p class="mut">Toca los alimentos que tienes en casa. Si uno se puede preparar de varias formas, elige cómo lo cocinas. Se guarda solo.</p><div id="nevera"></div></section>
+<section class="panel" id="p-menu">
+  <p><button class="btn" id="nuevo">🔄 Generar menú nuevo de la semana</button>
+  <span class="chips" style="display:inline-flex;margin-left:10px"><button class="chip on" id="vHoy">Hoy</button><button class="chip" id="vSem">Toda la semana</button></span></p>
+  <p class="mut">Marca cada comida como <b>Lo hice</b> o <b>No lo hice</b>. Con eso la app aprende qué te gusta y arma tu próximo menú a tu medida.</p>
+  <div id="menu"></div>
+</section>
+<section class="panel" id="p-prog"><div id="prog"></div></section>
+<section class="panel" id="p-chat"><div class="card"><h3>🤖 Chef Cuchara</h3><p class="mut">Tu asistente: pregúntale por porciones, recetas o qué utensilio te conviene.</p>
+  <div id="chatLog" class="chatlog" aria-live="polite"></div><form id="chatForm" class="chatform"><input id="chatIn" placeholder="Escribe tu pregunta..." maxlength="400" aria-label="Pregunta"><button class="btn">Enviar</button></form></div></section>
+<section class="panel" id="p-fuentes"><div class="card"><h3>Fuentes</h3><ul>
+<li><a href="https://www.salud.gob.ec/guias-alimentarias-gabas/" target="_blank" rel="noopener">Guías Alimentarias del Ecuador (GABAS), MSP</a></li>
+<li><a href="https://instituciones.msp.gob.ec/images/Documentos/GABAS_Guias_Alimentarias_Ecuador_2018.pdf" target="_blank" rel="noopener">Documento GABAS 2018 (PDF)</a></li>
+<li><a href="https://www.salud.gob.ec/wp-content/uploads/2013/11/GUIA-DE-ALIMENTACION-PADRES-DE-FAMILIA-jul2017.pdf" target="_blank" rel="noopener">Guía de alimentación para padres de familia, MSP</a></li>
+<li><a href="https://www.fao.org/3/ca9928es/ca9928es.pdf" target="_blank" rel="noopener">Documento técnico GABA del Ecuador, MSP y FAO</a></li>
+<li><a href="https://books.google.com.pr/books?id=_pRVkS6nUPEC&printsec=frontcover#v=onepage&q&f=false" target="_blank" rel="noopener">Libro de consulta (Google Libros)</a></li>
+<li><a href="https://www.who.int/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener">OMS: alimentación sana</a></li>
+<li><a href="https://doi.org/10.1093/ajcn/51.2.241" target="_blank" rel="noopener">Mifflin y otros (1990)</a></li>
+<li><a href="https://fdc.nal.usda.gov/" target="_blank" rel="noopener">USDA FoodData Central</a></li></ul>
+<p class="mut">La cuchara es un dibujo propio inspirado en la de las guías del Ecuador. Calorías y porciones son aproximadas. Las metas de proteína (1,2 a 1,6 g por kg) y grasa (28 % de las calorías) son criterios de este proyecto, no de la OMS.</p></div></section>
+</div>
+<script src="config.js"></script><script src="comun.js"></script>
+<script>
+if (!getToken()) location.href = "auth.html";
+navbar("app.html");
+let CFG, ALIM, NEV = {}, MENU = null, VISTA = "hoy";
+const neg = (t) => t.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
+
+function metas(n, edad) {
+  if (edad < 18) return `<div class="card">Las necesidades de niños y adolescentes dependen del crecimiento. Consulta a un pediatra o nutricionista. Los menús usan 2000 kcal de referencia.</div>`;
+  const t = [["#C98F1E", `${n.kcal} calorías`, "La energía que tu cuerpo necesita al día, como la gasolina de un carro."],
+    ["#C2503B", `≈ ${Math.max(1, Math.round(n.prot / 22))} porciones de proteína`, `Una porción es del tamaño de la palma de tu mano (carne, pollo, pescado, 2 huevos o 1 taza de lentejas). Unos ${n.prot} g al día.`],
+    ["#8A6A1E", `≈ ${Math.max(1, Math.round(n.carb / 45))} tazas de carbohidratos`, "Arroz, papa, yuca, pan, fideos o mote, y las frutas. Dan energía para moverte y pensar."],
+    ["#3C78AD", `≈ ${Math.max(2, Math.round(n.grasa / 14))} cucharadas de grasa buena`, "Aceite de oliva, aguacate, maní o nueces. Una cucharada de aceite tiene unos 14 g."],
+    ["#3B8A4C", "2 a 3 frutas y 3 puñados de verduras", "Así llegas a los 400 g de frutas y verduras que recomienda la OMS."],
+    ["#2C6E49", `≈ ${Math.round(n.agua * 4)} vasos de agua`, `Unos ${n.agua} litros al día (un vaso es 250 ml). Evita mucha sal y azúcar.`]];
+  return `<div class="g2">${t.map(([c, a, b]) => `<div class="meta" style="background:${c}"><b>${a}</b><small>${b}</small></div>`).join("")}</div>`;
+}
+
+function dibujarNevera() {
+  $("nevera").innerHTML = Object.entries(CFG.grupos).map(([g, v]) => `
+    <h3 style="color:${v.color};margin-top:18px">${v.nombre} <small class="mut" style="font-weight:400">· ${v.sub}</small></h3>
+    <div class="chips">${ALIM.filter((a) => a.grupo === g).map((a) =>
+      `<button class="chip ${a.alimento in NEV ? "on" : ""}" style="--c:${v.color}" data-a="${a.alimento}">${a.emoji} ${a.alimento}</button>`).join("")}</div>
+    <div>${ALIM.filter((a) => a.grupo === g && a.alimento in NEV && a.cocciones.length > 1).map((a) =>
+      `<span class="coc">¿Cómo preparas ${a.alimento.toLowerCase()}? <select data-c="${a.alimento}">${a.cocciones.map((c) =>
+        `<option ${NEV[a.alimento] === c ? "selected" : ""}>${c}</option>`).join("")}</select></span>`).join("")}</div>`).join("");
+}
+let temporizador;
+function guardarNevera() { clearTimeout(temporizador); temporizador = setTimeout(() => api("PUT", "/api/nevera", { nevera: NEV }), 500); }
+$("nevera").addEventListener("click", (e) => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  const a = b.dataset.a; if (a in NEV) delete NEV[a]; else NEV[a] = ALIM.find((x) => x.alimento === a).cocciones[0];
+  dibujarNevera(); guardarNevera();
+});
+$("nevera").addEventListener("change", (e) => { if (e.target.dataset.c) { NEV[e.target.dataset.c] = e.target.value; guardarNevera(); } });
+
+function comidaHTML(c, d) {
+  if (!c.items.length) return `<div class="card"><h3>${CFG.iconos[c.nombre]} ${c.nombre}</h3><p class="mut">Agrega alimentos de los grupos que faltan.</p></div>`;
+  const est = MENU.estados[`${d}|${c.nombre}`] || CFG.estados[0];
+  return `<div class="card"><h3>${CFG.iconos[c.nombre]} ${c.nombre}</h3><div class="mut">≈ ${c.kcal} kcal de ${c.meta} sugeridas</div><div class="plato-img" aria-hidden="true">${c.items.map((i) => `<span>${i.emoji}</span>`).join("")}</div><p><b>${c.plato}</b></p>
+  <details><summary>📖 Ver receta, porciones y consejos</summary>
+    <p><b>Ingredientes</b></p><ul>${c.items.map((i) => `<li>${i.emoji} ${i.texto} · unos ${i.gramos} g · ${i.kcal} kcal</li>`).join("")}</ul>
+    <p><b>Cómo prepararlo</b></p><ol>${c.pasos.map((p) => `<li>${neg(p)}</li>`).join("")}</ol>
+    <p><a href="${c.video}" target="_blank" rel="noopener">▶ Ver cómo se prepara en YouTube</a></p>
+    ${c.items.filter((i) => i.tip).map((i) => `<div class="tip">💡 <b>¿Sabías que?</b> (${i.nombre}) ${i.tip}.</div>`).join("")}</details>
+  <div class="est">${CFG.estados.map((s) => `<button class="${s === est ? "on" : ""}" data-d="${d}" data-c="${c.nombre}" data-s="${s}">${s}</button>`).join("")}</div>
+  ${est === CFG.estados[2] ? `<p><button class="btn sec" data-cambiar data-d="${d}" data-c="${c.nombre}">🔄 Cambiar esta comida por otra</button></p>` : ""}</div>`;
+}
+function dibujarMenu() {
+  if (!MENU || !MENU.menu) { $("menu").innerHTML = `<div class="card mut">Elige algunos alimentos en «Mi nevera» y tu menú aparecerá aquí.</div>`; return; }
+  const hoy = (new Date().getDay() + 6) % 7;
+  const dias = VISTA === "hoy" ? [hoy] : [0, 1, 2, 3, 4, 5, 6];
+  $("menu").innerHTML = (MENU.faltan.length ? `<div class="aviso">Para un menú más completo te faltan: ${MENU.faltan.join(", ")}.</div>` : "") +
+    dias.map((d) => `<h2 style="margin:18px 0 8px">${CFG.dias[d]}</h2><div class="g2">${MENU.menu[d].map((c) => comidaHTML(c, d)).join("")}</div>`).join("");
+}
+$("menu").addEventListener("click", async (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  if (b.dataset.s) { await api("POST", "/api/estado", { dia: +b.dataset.d, comida: b.dataset.c, estado: b.dataset.s });
+    MENU.estados[`${b.dataset.d}|${b.dataset.c}`] = b.dataset.s; dibujarMenu(); }
+  else if ("cambiar" in b.dataset) { MENU = await api("POST", "/api/cambiar", { dia: +b.dataset.d, comida: b.dataset.c }); dibujarMenu(); }
+});
+$("nuevo").onclick = async () => { MENU = await api("POST", "/api/menu/nuevo"); dibujarMenu(); };
+const vista = (v) => { VISTA = v; $("vHoy").classList.toggle("on", v === "hoy"); $("vSem").classList.toggle("on", v === "sem"); dibujarMenu(); };
+$("vHoy").onclick = () => vista("hoy"); $("vSem").onclick = () => vista("sem");
+
+async function dibujarProgreso() {
+  const p = await api("GET", "/api/progreso");
+  const max = Math.max(4, ...p.por_dia);
+  $("prog").innerHTML = `<div class="g2"><div class="card"><h3>Esta semana</h3><p><b style="font-size:1.8rem">${p.hechas}</b> de ${p.total} comidas cumplidas</p>
+    <div class="barra"><i style="width:${100 * p.hechas / p.total}%"></i></div>
+    <div style="display:flex;gap:8px;align-items:flex-end;height:120px;margin-top:16px">${p.por_dia.map((n, i) =>
+      `<div style="flex:1;text-align:center"><div style="height:${Math.max(4, 90 * n / max)}px;background:var(--brand);border-radius:6px 6px 0 0;transition:height .6s"></div><small class="mut">${CFG.dias[i].slice(0, 3)}</small></div>`).join("")}</div></div>
+    <div class="card"><h3>❤️ Tus alimentos favoritos</h3>${p.favoritos.length ? `<p style="font-size:1.1rem">${p.favoritos.map((f) => `${f.emoji} <b>${f.alimento}</b>`).join(" &nbsp; ")}</p>
+      <p class="mut">Aparecerán más seguido en tus próximos menús semanales.</p>` : `<p class="mut">Marca comidas como «Lo hice» para descubrir cuáles te gustan más.</p>`}</div></div>
+    <div class="card" style="margin-top:14px"><h3>Historial</h3><table><tr><th>Semana</th><th>Comidas cumplidas</th><th>Cumplimiento</th></tr>${p.historial.map((h) =>
+      `<tr><td>${h.semana}</td><td>${h.hechas} de 28</td><td>${h.porcentaje} %</td></tr>`).join("") || `<tr><td colspan="3" class="mut">Aún no hay semanas.</td></tr>`}</table></div>`;
+}
+
+let HIST = [];
+function pintarChat(carga) {
+  $("chatLog").innerHTML = (HIST.length ? "" : `<div class="mut">Por ejemplo: «¿qué balanza me conviene?» o «¿cómo cocino las lentejas?»</div>`) +
+    HIST.map((m) => `<div class="burbuja ${m.rol}">${esc(m.texto)}</div>`).join("") + (carga ? `<div class="burbuja assistant">Escribiendo…</div>` : "");
+  $("chatLog").scrollTop = 1e9;
+}
+$("chatForm").onsubmit = async (e) => {
+  e.preventDefault(); const t = $("chatIn").value.trim(); if (!t) return;
+  $("chatIn").value = ""; HIST.push({ rol: "user", texto: t }); pintarChat(true);
+  try { HIST.push({ rol: "assistant", texto: (await api("POST", "/api/chat", { mensajes: HIST })).respuesta }); }
+  catch (x) { HIST.push({ rol: "assistant", texto: "⚠️ " + x.message }); }
+  pintarChat(false);
+};
+pintarChat(false);
+const NOMBRES = { metas: "🎯 Mis metas", nevera: "🧺 Mi nevera", menu: "📖 Mi menú", prog: "📈 Mi progreso", chat: "🤖 Asistente", fuentes: "📚 Fuentes" };
+function ir(t) {
+  document.querySelectorAll(".panel").forEach((p) => p.classList.toggle("on", p.id === "p-" + t));
+  document.querySelectorAll("#tabs button").forEach((b) => b.classList.toggle("on", b.dataset.t === t));
+  if (t === "menu") api("GET", "/api/menu").then((m) => { MENU = m; dibujarMenu(); });
+  if (t === "prog") dibujarProgreso();
+}
+$("tabs").innerHTML = Object.entries(NOMBRES).map(([k, v]) => `<button data-t="${k}">${v}</button>`).join("");
+$("tabs").onclick = (e) => e.target.dataset.t && ir(e.target.dataset.t);
+$("salir").onclick = () => { localStorage.clear(); location.href = "auth.html"; };
+$("guardarPerfil").onclick = async () => {
+  const r = await api("PUT", "/api/perfil", { edad: +$("edad").value, sexo: $("sexo").value, peso: +$("peso").value, talla: +$("talla").value, act: $("act").value, obj: $("obj").value });
+  $("metas").innerHTML = metas(r.necesidades, +$("edad").value); $("okPerfil").textContent = "Guardado ✓";
+};
+
+(async () => {
+  [CFG, ALIM] = await Promise.all([api("GET", "/api/config", null, false), api("GET", "/api/alimentos", null, false)]);
+  $("act").innerHTML = CFG.actividad.map((a) => `<option>${a}</option>`).join("");
+  $("obj").innerHTML = CFG.objetivo.map((a) => `<option>${a}</option>`).join("");
+  const yo = await api("GET", "/api/yo"), p = yo.perfil;
+  $("quien").textContent = "👤 " + localStorage.getItem("usuario");
+  ["edad", "sexo", "peso", "talla", "act", "obj"].forEach((k) => ($(k).value = p[k]));
+  NEV = yo.nevera; $("metas").innerHTML = metas(yo.necesidades, p.edad);
+  dibujarNevera(); ir("metas");
+})();
+</script>
+</body>
+</html>
