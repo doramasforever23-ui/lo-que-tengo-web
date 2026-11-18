@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lo que tengo, lo que como</title><link rel="stylesheet" href="estilos.css"></head>
+<body>
+<div class="wrap">
+  <section class="g2" style="align-items:center;padding:30px 0">
+    <div><h1 class="hero">Cocina algo <em>bueno</em> con lo que ya tienes</h1>
+      <p class="mut" style="font-size:1.1rem;max-width:44ch">Dinos qué hay en tu nevera y armamos menús equilibrados del día y de la semana, con porciones en tazas y unidades, recetas fáciles y un asistente que te guía.</p>
+      <p><a class="btn" href="app.html" style="text-decoration:none;display:inline-block">Armar mi menú</a> <a class="btn sec" href="catalogo.html" style="text-decoration:none;display:inline-block">Ver utensilios</a></p></div>
+    <div style="text-align:center"><div style="width:min(260px,70vw);aspect-ratio:1;border-radius:50%;margin:auto;background:conic-gradient(#3B8A4C 0 33%,#B23C84 33% 50%,#C98F1E 50% 75%,#C2503B 75%);box-shadow:var(--sombra);animation:flota 4s ease-in-out infinite"></div>
+      <p class="mut">½ vegetales y frutas · ¼ carbohidratos · ¼ proteínas</p></div>
+  </section>
+  <section class="g3">
+    <div class="card rev"><h3>1 · Elige</h3><p class="mut">Toca los alimentos que tienes en casa. Si no está en la lista, lo escribes y la app lo ubica sola.</p></div>
+    <div class="card rev"><h3>2 · Cocina</h3><p class="mut">Recibes tu menú con cantidades fáciles, recetas paso a paso y un video para ver cómo se prepara.</p></div>
+    <div class="card rev"><h3>3 · Aprende</h3><p class="mut">Marcas lo que comiste y tu menú se ajusta a lo que más te gusta.</p></div>
+  </section>
+  <h2 style="margin:36px 0 14px">Para cocinar mejor</h2>
+  <div class="g3" id="destacados"><div class="cargando"></div><div class="cargando"></div><div class="cargando"></div></div>
+  <p style="text-align:center;margin-top:18px"><a class="btn sec" href="catalogo.html" style="text-decoration:none">Ver todo el catálogo</a></p>
+  <p class="mut" style="margin-top:40px;font-size:.85rem">Guía general para personas sanas y adultas. Si tienes alguna enfermedad o es para un menor de edad, consulta primero con tu nutricionista o médico.</p>
+</div>
+<script src="config.js"></script><script src="comun.js"></script>
+<script>
+navbar("index.html");
+api("GET", "/api/productos", null, false).then((ps) => {
+  $("destacados").innerHTML = ps.slice(0, 3).map((p) => `<div class="card prod rev"><div class="foto">${fotoProducto(p)}</div><div class="cuerpo"><h3>${esc(p.nombre)}</h3><p>${esc(p.descripcion)}</p><span class="precio">$${p.precio.toFixed(2)}</span></div></div>`).join("");
+  revelar();
+}).catch((e) => { $("destacados").innerHTML = `<div class="card err">${esc(e.message)}</div>`; });
+revelar();
+</script></body></html>
