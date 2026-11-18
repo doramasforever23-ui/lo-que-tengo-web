@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contacto · Lo que tengo, lo que como</title><link rel="stylesheet" href="estilos.css"></head>
+<body><div class="wrap" style="max-width:620px">
+  <h1 class="hero" style="font-size:clamp(2rem,5vw,3rem)">Escríbenos</h1><p class="mut">Dudas, sugerencias o alimentos que quieras que agreguemos. Te respondemos pronto.</p>
+  <form class="card" id="form"><label>Nombre</label><input id="n" required minlength="2" maxlength="80"><label>Correo</label><input id="c" type="email" required>
+    <label>Mensaje</label><textarea id="m" rows="5" required minlength="5" maxlength="1500"></textarea><p><button class="btn" id="b">Enviar mensaje</button></p><div id="msg" role="status"></div></form>
+</div>
+<script src="config.js"></script><script src="comun.js"></script>
+<script>
+navbar("contacto.html");
+$("form").onsubmit = async (e) => { e.preventDefault(); $("b").disabled = true; $("msg").className = ""; $("msg").textContent = "Enviando…";
+  try { const r = await api("POST", "/api/contacto", { nombre: $("n").value, correo: $("c").value, mensaje: $("m").value }, false);
+    $("msg").className = "ok"; $("msg").textContent = r.mensaje; $("form").reset(); }
+  catch (x) { $("msg").className = "err"; $("msg").textContent = x.message; } $("b").disabled = false; };
+</script></body></html>
