@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lo que tengo, lo que como · Entrar</title>
+<link rel="stylesheet" href="estilos.css">
+<script src="config.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.24.7/babel.min.js"></script>
+<style>
+body{min-height:100vh;display:grid;place-items:center;padding:0}
+.caja{width:min(420px,92vw);background:var(--surf);border-radius:26px;padding:28px;box-shadow:var(--sombra);animation:sube .5s both}
+h1{font-size:2rem;margin:0 0 4px}.sub{color:var(--mut);margin:0 0 18px}
+.plato{width:70px;height:70px;border-radius:50%;margin-bottom:14px;background:conic-gradient(#3B8A4C 0 33%,#B23C84 33% 50%,#C98F1E 50% 75%,#C2503B 75%)}
+.caja button[type=submit]{width:100%;margin-top:18px;padding:12px;border:0;border-radius:999px;background:var(--brand);color:var(--bi);font:700 1rem 'DM Sans';cursor:pointer;box-shadow:var(--sombra)}
+.link{width:100%;background:none;border:0;color:var(--ink);margin-top:10px;padding:6px;font:500 .95rem 'DM Sans';cursor:pointer;text-decoration:underline}
+.demo{background:var(--bg);border:1px dashed var(--brand);border-radius:14px;padding:10px;margin-top:12px}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+
+async function api(ruta, cuerpo) {
+  const r = await fetch(API + ruta, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(cuerpo) });
+  const d = await r.json();
+  if (!r.ok) throw new Error(typeof d.detail === "string" ? d.detail : "Revisa los datos");
+  return d;
+}
+
+function App() {
+  const [vista, setVista] = useState("login");
+  const [f, setF] = useState({ usuario: "", correo: "", clave: "", codigo: "" });
+  const [msg, setMsg] = useState("");
+  const [err, setErr] = useState("");
+  const [demo, setDemo] = useState("");
+  const cambiar = (k) => (e) => setF({ ...f, [k]: e.target.value });
+  const ir = (v) => { setVista(v); setErr(""); setMsg(""); };
+
+  async function enviar(e) {
+    e.preventDefault(); setErr(""); setMsg("");
+    try {
+      if (vista === "login") {
+        const d = await api("/api/login", { usuario: f.usuario, clave: f.clave });
+        localStorage.setItem("token", d.token); localStorage.setItem("usuario", d.usuario); localStorage.setItem("rol", d.rol);
+        location.href = d.rol === "admin" ? "admin.html" : "app.html";
+      } else if (vista === "registro") {
+        const d = await api("/api/registro", { usuario: f.usuario, correo: f.correo, clave: f.clave });
+        setDemo(d.codigo_demo || ""); setVista("verificar"); setMsg(d.mensaje);
+      } else {
+        const d = await api("/api/verificar", { usuario: f.usuario, codigo: f.codigo });
+        setVista("login"); setMsg(d.mensaje);
+      }
+    } catch (x) { setErr(x.message); }
+  }
+
+  const titulos = { login: "Entrar", registro: "Crear cuenta", verificar: "Verifica tu correo" };
+  return (
+    <form className="caja" onSubmit={enviar}>
+      <div className="plato" />
+      <h1>{titulos[vista]}</h1>
+      <p className="sub">Lo que tengo, lo que como</p>
+      <label>Usuario</label>
+      <input value={f.usuario} onChange={cambiar("usuario")} autoComplete="username" required />
+      {vista === "registro" && (<><label>Correo</label><input type="email" value={f.correo} onChange={cambiar("correo")} required /></>)}
+      {vista !== "verificar" && (<><label>Contraseña (6 o más caracteres)</label><input type="password" value={f.clave} onChange={cambiar("clave")} autoComplete="current-password" required /></>)}
+      {vista === "verificar" && (<><label>Código de 6 números</label><input value={f.codigo} onChange={cambiar("codigo")} inputMode="numeric" maxLength={6} required /></>)}
+      {demo && vista === "verificar" && <div className="demo">Modo de prueba (sin correo configurado). Tu código es: <b>{demo}</b></div>}
+      {err && <div className="err">{err}</div>}
+      {msg && <div className="ok">{msg}</div>}
+      <button type="submit">{titulos[vista]}</button>
+      {vista === "login" && (<><button type="button" className="link" onClick={() => ir("registro")}>Crear una cuenta</button>
+        <button type="button" className="link" onClick={() => ir("verificar")}>Ya tengo mi código</button></>)}
+      {vista !== "login" && <button type="button" className="link" onClick={() => ir("login")}>Volver a entrar</button>}
+    </form>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
