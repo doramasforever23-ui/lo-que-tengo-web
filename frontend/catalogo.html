@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catálogo · Lo que tengo, lo que como</title><link rel="stylesheet" href="estilos.css"></head>
+<body><div class="wrap">
+  <h1 class="hero" style="font-size:clamp(2rem,5vw,3rem)">Catálogo</h1><p class="mut">Utensilios para medir, cocinar y preparar tus comidas como en las recetas.</p>
+  <input id="buscar" placeholder="Buscar utensilio..." aria-label="Buscar"><div class="chips" id="cats"></div>
+  <div class="g4" id="lista"><div class="cargando"></div><div class="cargando"></div><div class="cargando"></div><div class="cargando"></div></div>
+  <section class="card" id="pedido" style="margin-top:26px"><h2>Mi pedido</h2><div id="carrito" class="mut">Aún no agregaste nada.</div>
+    <form id="form" hidden><label>Tu nombre</label><input id="pn" required minlength="2"><label>Correo o teléfono</label><input id="pc" required minlength="5">
+      <label>Nota (opcional)</label><input id="pt" maxlength="300"><p><button class="btn" id="enviar">Solicitar pedido</button></p><div id="msg" role="status"></div></form></section>
+</div>
+<script src="config.js"></script><script src="comun.js"></script>
+<script>
+navbar("catalogo.html");
+let PS = [], CAT = "Todos", Q = "", CARRITO = JSON.parse(localStorage.getItem("carrito") || "{}");
+const cant = {}; // cantidad elegida en cada tarjeta
+function lista() {
+  const v = PS.filter((p) => (CAT === "Todos" || p.categoria === CAT) && (p.nombre + p.descripcion).toLowerCase().includes(Q));
+  $("lista").innerHTML = v.map((p) => `<div class="card prod rev vis"><div class="foto">${fotoProducto(p)}</div><div class="cuerpo"><h3>${esc(p.nombre)}</h3><p>${esc(p.descripcion)}</p>
+    <div class="fila"><span class="precio">$${p.precio.toFixed(2)}</span><span class="qty"><button data-m="${p.id}" aria-label="Menos">−</button><b id="q${p.id}">${cant[p.id] || 1}</b><button data-p="${p.id}" aria-label="Más">+</button></span></div>
+    <p><button class="btn" data-a="${p.id}" style="width:100%">Agregar</button></p></div></div>`).join("") || `<p class="mut">No encontramos ese utensilio.</p>`;
+}
+function carrito() {
+  const ids = Object.keys(CARRITO).filter((i) => PS.some((p) => p.id === i)); localStorage.setItem("carrito", JSON.stringify(CARRITO));
+  $("form").hidden = !ids.length;
+  $("carrito").innerHTML = ids.length ? `<table>${ids.map((i) => { const p = PS.find((x) => x.id === i);
+    return `<tr><td>${p.emoji} ${esc(p.nombre)}</td><td>× ${CARRITO[i]}</td><td>$${(p.precio * CARRITO[i]).toFixed(2)}</td><td><button class="chip" data-x="${i}">Quitar</button></td></tr>`; }).join("")}
+    <tr><th colspan="2">Total</th><th colspan="2">$${ids.reduce((s, i) => s + PS.find((x) => x.id === i).precio * CARRITO[i], 0).toFixed(2)}</th></tr></table>` : "Aún no agregaste nada.";
+}
+$("lista").onclick = (e) => { const b = e.target.closest("button"); if (!b) return; const d = b.dataset;
+  if (d.p || d.m) { const i = d.p || d.m; cant[i] = Math.max(1, Math.min(20, (cant[i] || 1) + (d.p ? 1 : -1))); $("q" + i).textContent = cant[i]; }
+  if (d.a) { CARRITO[d.a] = (CARRITO[d.a] || 0) + (cant[d.a] || 1); carrito(); toast("Agregado a tu pedido ✓"); } };
+$("carrito").onclick = (e) => { const x = e.target.dataset.x; if (x) { delete CARRITO[x]; carrito(); } };
+$("buscar").oninput = (e) => { Q = e.target.value.toLowerCase(); lista(); };
+$("cats").onclick = (e) => { if (e.target.dataset.c) { CAT = e.target.dataset.c; cats(); lista(); } };
+function cats() { $("cats").innerHTML = ["Todos", ...new Set(PS.map((p) => p.categoria))].map((c) => `<button class="chip ${c === CAT ? "on am" : ""}" data-c="${c}">${c}</button>`).join(""); }
+$("form").onsubmit = async (e) => { e.preventDefault(); $("enviar").disabled = true; $("msg").className = ""; $("msg").textContent = "Enviando…";
+  try { const r = await api("POST", "/api/pedido", { nombre: $("pn").value, contacto: $("pc").value, nota: $("pt").value, items: Object.entries(CARRITO).map(([id, cantidad]) => ({ id, cantidad })) }, false);
+    $("msg").className = "ok"; $("msg").textContent = r.mensaje; CARRITO = {}; carrito(); $("form").hidden = true; }
+  catch (x) { $("msg").className = "err"; $("msg").textContent = x.message; } $("enviar").disabled = false; };
+api("GET", "/api/productos", null, false).then((p) => { PS = p; cats(); lista(); carrito(); }).catch((e) => { $("lista").innerHTML = `<div class="card err">${esc(e.message)}</div>`; });
+</script></body></html>
